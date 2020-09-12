@@ -1,0 +1,10 @@
+node_modules
+build
+
+__pycache__
+
+.idea
+.vscode
+.python-version
+
+.DS_Store

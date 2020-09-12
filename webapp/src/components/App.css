@@ -1,0 +1,132 @@
+/*
+Title: Creating an HTML5 enhanced responsive-ready contact form, with custom javascript feature detection
+Tutorial on: http://www.onextrapixel.com
+Author: http://www.toddmotto.com
+*/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -o-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+body {
+  font: 400 12px/1.625 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #ffffff;
+  background: #333333;
+}
+.wrapper {
+  max-width: 500px;
+  width: 95%;
+  margin: 0 auto;
+  position: relative;
+}
+#contact-form input[type="text"],
+#contact-form textarea,
+#contact-form button[type="submit"] {
+  font: 400 12px/12px "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+#contact-form {
+  text-shadow: 0 1px 0 #fff;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  background: #f9f9f9;
+  padding: 25px;
+}
+#contact-form h3 {
+  color: #333333;
+  display: block;
+  font-size: 28px;
+}
+#contact-form h4 {
+  color: #333333;
+  margin: 5px 0 15px;
+  display: block;
+  font-size: 13px;
+}
+#contact-form label span {
+  cursor: pointer;
+  color: #333333;
+  display: block;
+  margin: 5px 0;
+  font-weight: 900;
+}
+#contact-form select,
+#contact-form input[type="text"],
+#contact-form textarea {
+  width: 100%;
+  box-shadow: inset 0 1px 2px #ddd, 0 1px 0 #fff;
+  -webkit-box-shadow: inset 0 1px 2px #ddd, 0 1px 0 #fff;
+  -moz-box-shadow: inset 0 1px 2px #ddd, 0 1px 0 #fff;
+  border: 1px solid #ccc;
+  background: #fff;
+  margin: 0 0 5px;
+  padding: 10px;
+  border-radius: 5px;
+}
+#contact-form select,
+#contact-form input[type="text"]:hover,
+#contact-form textarea:hover {
+  -webkit-transition: border-color 0.3s ease-in-out;
+  -moz-transition: border-color 0.3s ease-in-out;
+  transition: border-color 0.3s ease-in-out;
+  border: 1px solid #aaa;
+}
+#contact-form textarea {
+  height: 100px;
+  max-width: 100%;
+}
+#contact-form button[type="submit"] {
+  cursor: pointer;
+  width: 100%;
+  border: none;
+  background: #0878f8;
+  color: #fff;
+  margin: 0 0 5px;
+  padding: 10px;
+  border-radius: 5px;
+}
+#contact-form button[type="submit"]:hover {
+  background: #333333;
+  -webkit-transition: background 0.3s ease-in-out;
+  -moz-transition: background 0.3s ease-in-out;
+  transition: background-color 0.3s ease-in-out;
+}
+#contact-form button[type="submit"]:active {
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+#contact-form select,
+#contact-form input:focus,
+#contact-form textarea:focus {
+  outline: 0;
+  border: 1px solid #999;
+}
+::-webkit-input-placeholder {
+  color: #888;
+}
+:-moz-placeholder {
+  color: #888;
+}
+::-moz-placeholder {
+  color: #888;
+}
+:-ms-input-placeholder {
+  color: #888;
+}
+
+.error {
+  color: rgb(190, 0, 0);
+  padding: 10px 0px;
+}
+
+.message {
+  color: #888;
+  padding: 10px 0px;
+}

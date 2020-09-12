@@ -1,0 +1,18 @@
+{
+  "dnsmasq_cfg": {
+    "domain": "kyle.rmot.io",
+    "address": "/kyle.rmot.io/10.60.0.1",
+    "dhcp_range": "10.60.0.100,10.60.0.150,12h",
+    "vendor_class": "set:device,IoT"
+  },
+  "host_apd_cfg": {
+    "ip": "10.60.0.1",
+    "ssid": "kyle-ap",
+    "wpa_passphrase": "hellokyle",
+    "channel": "6"
+  },
+  "wpa_supplicant_cfg": {
+    "country": "US",
+    "cfg_file": "/etc/wpa_supplicant/wpa_supplicant.conf"
+  }
+}
