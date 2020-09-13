@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getNetworks, connectNetwork, getStatus } from "../api/wifiApis";
 import Select from "react-select";
 import "./App.css";
+import status_simple from "../assets/status_simple.png";
 
 function App() {
   const [isConnected, setIsConnected] = useState(false);
@@ -20,7 +21,7 @@ function App() {
 
         console.log("Network is " + isConnected);
 
-        if (!isConnected && networks.length == 0) {
+        if (!isConnected && networks.length === 0) {
           console.log("Fetching networks..");
           getNetworks()
             .then((_networks) => {
@@ -152,11 +153,7 @@ function App() {
 
   let connectedImage = (
     <div id="img-container">
-      <img
-        className="img-content"
-        src="images/status_simple.png"
-        alt="connected"
-      />
+      <img className="img-content" src={status_simple} alt="connected" />
       <h2 className="img-content">WIFI Connected!</h2>
     </div>
   );
