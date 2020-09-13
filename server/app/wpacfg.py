@@ -144,7 +144,7 @@ def connect_to_network(_iface, _ssid, _type, _pass=None):
 
             run_program(f"wpa_cli -i {_iface} enable_network 0")
 
-            retry = 10
+            retry = 20
             while retry > 0:
                 logging.info(
                     f"Checking if the network is connected, retry {retry}")
