@@ -6,6 +6,12 @@ export function getNetworks() {
     .catch(handleError);
 }
 
+export function getStatus() {
+  return fetch(baseUrl + "status")
+    .then(handleResponse)
+    .catch(handleError);
+}
+
 export function connectNetwork(ssid, password, type) {
   return fetch(baseUrl + "connect", {
     method: "POST",

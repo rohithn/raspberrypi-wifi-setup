@@ -18,7 +18,7 @@ Author: http://www.toddmotto.com
 }
 body {
   font: 400 12px/1.625 "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #ffffff;
+  /* color: #ffffff; */
   background: #333333;
 }
 .wrapper {
@@ -27,13 +27,30 @@ body {
   margin: 0 auto;
   position: relative;
 }
+
 #contact-form input[type="text"],
 #contact-form textarea,
 #contact-form button[type="submit"] {
   font: 400 12px/12px "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+
+#img-container {
+  display: flex;
+  flex-direction: column;
+  /* text-shadow: 0 1px 0 #fff; */
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  background: #ffffff;
+  padding: 25px;
+}
+
+.img-content {
+  margin: 0 auto;
+}
+
 #contact-form {
-  text-shadow: 0 1px 0 #fff;
+  /* text-shadow: 0 1px 0 #fff; */
   border-radius: 4px;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -59,7 +76,7 @@ body {
   font-weight: 900;
 }
 #contact-form select,
-#contact-form input[type="text"],
+#contact-form input[type="password"],
 #contact-form textarea {
   width: 100%;
   box-shadow: inset 0 1px 2px #ddd, 0 1px 0 #fff;
