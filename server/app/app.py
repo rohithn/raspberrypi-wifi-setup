@@ -23,6 +23,11 @@ def index():
     return render_template('index.html')
 
 
+@app.route('/status')
+def status():
+    return {'result': {'connected': iotwifi.wlan_status()}}
+
+
 @app.route("/scan")
 def scan():
     networks = iotwifi.scan_networks()
@@ -36,7 +41,10 @@ def connect():
     password = data["password"]
     net_type = data["type"]
     res = iotwifi.connect_network(ssid, password, net_type)
-    return {'result': res}
+    if res:
+        return {'result': {'connected': res}}
+    else:
+        return {'result': {'connected': res}}, 400
 
 
 if __name__ == "__main__":

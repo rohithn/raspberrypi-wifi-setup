@@ -71,9 +71,8 @@ def configured_networks():
 
 
 def connect_network(ssid, password, net_type):
-    wpacfg.connect_to_network("wlan0", ssid, net_type, _pass=password)
+    return wpacfg.connect_to_network("wlan0", ssid, net_type, _pass=password)
 
 
 def wlan_status():
-    if wpacfg.is_associated():
-        return wpacfg.has_ip()
+    return wpacfg.is_associated("wlan0")

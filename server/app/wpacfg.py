@@ -144,17 +144,20 @@ def connect_to_network(_iface, _ssid, _type, _pass=None):
 
             run_program(f"wpa_cli -i {_iface} enable_network 0")
 
-            retry = 5
+            retry = 10
             while retry > 0:
+                logging.info(
+                    f"Checking if the network is connected, retry {retry}")
                 if is_associated(_iface):
-                    break
+                    logging.info("Network connected, saving config..")
+                    run_program(f"wpa_cli -i {_iface} save_config")
+                    run_program(f"wpa_cli -i {_iface} select_network 0")
+                    return True
                 retry -= 1
                 logging.debug("Not connected, retrying")
-                time.sleep(0.5)
+                time.sleep(1)
 
-            run_program(f"wpa_cli -i {_iface} save_config")
-
-            run_program(f"wpa_cli -i {_iface} select_network 0")
+    return False
 
 
 def is_associated(_iface):

@@ -38,11 +38,13 @@ WORKDIR /app
 COPY ./server/app ./
 COPY ./server/requirements.txt ./
 
-RUN pip install -U pip
+# RUN pip install -U pip
 RUN pip install -r requirements.txt
 
 # Get the static webpage files from the build stage
 COPY --from=build /webapp/build/index.html ./templates/
 COPY --from=build /webapp/build/static ./static
+
+ENV FLASK_ENV development
 
 CMD ["python3", "app.py"]

@@ -49,14 +49,19 @@ class Command(threading.Thread):
             if self.fail_on_error:
                 raise Exception(err)
 
+
 def reset_wpa_supplicant(country):
     logging.info("Resetting wpa_supplicant.conf..")
-    cmd1 = ["mv", "/etc/wpa_supplicant/wpa_supplicant.conf", "/etc/wpa_supplicant/old_wpa_supplicant.conf"]
+    cmd1 = ["mv", "/etc/wpa_supplicant/wpa_supplicant.conf",
+            "/etc/wpa_supplicant/old_wpa_supplicant.conf"]
     process_cmd(cmd1)
-    cmd2 = ["cp", "/cfg/wpa_supplicant.conf", "/etc/wpa_supplicant/wpa_supplicant.conf"]
+    cmd2 = ["cp", "/cfg/wpa_supplicant.conf",
+            "/etc/wpa_supplicant/wpa_supplicant.conf"]
     process_cmd(cmd2)
-    cmd3 = ["sed", "-i", f"/country=/c\country={country}", "/etc/wpa_supplicant/wpa_supplicant.conf"]
+    cmd3 = ["sed", "-i",
+            f"/country=/c\country={country}", "/etc/wpa_supplicant/wpa_supplicant.conf"]
     process_cmd(cmd3)
+
 
 def remove_ap_interface():
     logging.info("Removing existing interface (uap0) for access point..")
@@ -73,6 +78,12 @@ def add_ap_interface():
 def up_ap_interface():
     logging.info("Bringing up access point interface (uap0)...")
     cmd = ["ifconfig", "uap0", "up"]
+    process_cmd(cmd)
+
+
+def down_ap_interface():
+    logging.info("Bringing down access point interface (uap0)...")
+    cmd = ["ifconfig", "uap0", "down"]
     process_cmd(cmd)
 
 
