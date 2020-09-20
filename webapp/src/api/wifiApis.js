@@ -12,6 +12,20 @@ export function getStatus() {
     .catch(handleError);
 }
 
+export function getConfiguredNetworks() {
+  return fetch(baseUrl + "list")
+    .then(handleResponse)
+    .catch(handleError);
+}
+
+export function resetNetwork() {
+  return fetch(baseUrl + "reset", {
+    method: "POST",
+  })
+    .then(handleResponse)
+    .catch(handleError);
+}
+
 export function connectNetwork(ssid, password, type) {
   return fetch(baseUrl + "connect", {
     method: "POST",
@@ -29,10 +43,8 @@ export function connectNetwork(ssid, password, type) {
 async function handleResponse(response) {
   if (response.ok) return response.json();
   if (response.status === 400) {
-    // So, a server-side validation error occurred.
-    // Server side validation returns a string error message, so parse as text instead of json.
-    const error = await response.text();
-    throw new Error(error);
+    const error = await response.json();
+    throw error;
   }
   throw new Error("Network error");
 }
