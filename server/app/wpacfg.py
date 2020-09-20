@@ -20,7 +20,7 @@ This bit of code allows you to control wireless networking
 via Python. I chose to encapsualte wpa_supplicant because
 it has the most consistent output with greatest functionality.
 Currently supports OPEN, WPA[2], and WEP.
-#e.g:
+# e.g:
 >>> iface = get_wnics()[0]
 >>> start_wpa(iface)
 >>> networks = get_networks(iface)
@@ -142,6 +142,7 @@ def connect_to_network(_iface, _ssid, _type, _pass=None):
             else:
                 logging.error("Unsupported type")
 
+            run_program(f"wpa_cli -i {_iface} set_network 0 scan_ssid 1")
             run_program(f"wpa_cli -i {_iface} enable_network 0")
 
             retry = 20
@@ -151,13 +152,47 @@ def connect_to_network(_iface, _ssid, _type, _pass=None):
                 if is_associated(_iface):
                     logging.info("Network connected, saving config..")
                     run_program(f"wpa_cli -i {_iface} save_config")
-                    run_program(f"wpa_cli -i {_iface} select_network 0")
                     return True
                 retry -= 1
                 logging.debug("Not connected, retrying")
                 time.sleep(1)
 
     return False
+
+
+def reset_networks(_iface):
+    _disconnect_all(_iface)
+    time.sleep(1)
+    if run_program(f"wpa_cli -i {_iface} save_config") == "OK\n":
+        return True
+    return False
+
+
+def get_status(_iface):
+    status = run_program("wpa_cli -i %s status" % _iface)
+    r = re.search("wpa_state=(.*)", status)
+    if r:
+        return r.group(1)
+    return None
+
+
+def get_configured_networks(_iface):
+    # list_networks output looks like:
+    # Using interface 'wlan0'^M
+    # network id / ssid / bssid / flags^M
+    # 0    SimpleConnect_jstja_ch1 any     [DISABLED]^M
+    # 1    SimpleConnect_gjji2_ch6 any     [DISABLED]^M
+    # 2    SimpleConnect_xe9d1_ch11        any     [DISABLED]^M
+    networks = []
+    r = run_program("wpa_cli -i %s list_networks" % _iface).strip()
+    if "bssid" in r and len(r.split("\n")) > 1:
+        for line in r.split("\n")[1:]:
+            net_id = line.split()[0]
+            ss = " ".join(line.split()[1:-2])
+            status = line.split()[-1]
+            networks.append(
+                {"ssid": ss, "network_id": net_id, "status": status})
+        return networks
 
 
 def is_associated(_iface):

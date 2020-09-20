@@ -29,6 +29,8 @@ RUN apk add raspberrypi
 # Copy the wpa_supplicant template
 RUN mkdir -p /etc/wpa_supplicant/
 
+COPY ./server/configs/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf
+
 # Set up the base config files - override this on run if required
 COPY ./server/configs/wpa_supplicant.conf /cfg/wpa_supplicant.conf
 COPY ./server/configs/wificfg.json /cfg/wificfg.json

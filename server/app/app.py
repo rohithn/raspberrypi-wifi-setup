@@ -28,6 +28,12 @@ def status():
     return {'result': {'connected': iotwifi.wlan_status()}}
 
 
+@app.route('/list')
+def list():
+    nets = iotwifi.configured_networks()
+    return {'result': nets}
+
+
 @app.route("/scan")
 def scan():
     networks = iotwifi.scan_networks()
@@ -41,6 +47,15 @@ def connect():
     password = data["password"]
     net_type = data["type"]
     res = iotwifi.connect_network(ssid, password, net_type)
+    if res:
+        return {'result': {'connected': res}}
+    else:
+        return {'result': {'connected': res}}, 400
+
+
+@app.route("/reset", methods=['POST'])
+def reset():
+    res = iotwifi.reset_networks()
     if res:
         return {'result': {'connected': res}}
     else:
