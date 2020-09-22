@@ -16,6 +16,9 @@ COPY ./configs/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf
 # Set up the base config file - override this on run if required
 COPY ./configs/wificfg.json /cfg/wificfg.json
 
+ENV AP_SSID kyle
+ENV AP_PASS hellokyle
+
 WORKDIR /app
 
 COPY ./app ./

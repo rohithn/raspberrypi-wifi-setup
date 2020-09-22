@@ -34,7 +34,8 @@ def run_wifi(config: str):
     commands.configure_ap_interface(cfg.hostapd_cfg.ip)
 
     commands.start_hostapd(cfg.hostapd_cfg.wpa_passphrase,
-                           cfg.hostapd_cfg.channel)
+                           cfg.hostapd_cfg.channel,
+                           cfg.hostapd_cfg.ssid)
 
     time.sleep(5)
 
