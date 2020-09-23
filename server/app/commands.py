@@ -1,8 +1,6 @@
 import logging
 import subprocess
-import selectors
 import threading
-import fileinput
 
 
 class WpaNetwork:
@@ -183,23 +181,6 @@ def wpa_scanresults():
     logging.info("Fetching Scan Results")
     cmd = ["wpa_cli", "-i", "wlan0", "scan_results"]
     return process_cmd(cmd)
-
-
-def get_ssid():
-
-    # Create a ssid for this node
-    vcgencmd_result = subprocess.Popen(
-        ['/opt/vc/bin/vcgencmd', 'otp_dump'], stdout=subprocess.PIPE)
-
-    grep = subprocess.Popen(
-        ['grep', '^28'], stdin=vcgencmd_result.stdout, stdout=subprocess.PIPE)
-
-    node_id = grep.communicate()[0].decode(
-        'UTF-8').split(':')[1].strip().encode('utf-8')
-
-    new_ssid = "kyle-{}".format(node_id.decode('UTF-8'))
-
-    return new_ssid
 
 
 def process_cmd(cmd, cmd_input=None, fail_on_error=True):
