@@ -17,7 +17,11 @@ function Connected(props) {
   return (
     <div id="img-container">
       <img className="img-content" src={status_simple} alt="connected" />
-      {current ? <h2 className="img-content">Connected to {current}!</h2> : ""}
+      {current ? <div className="img-content">
+         <h2>Connected to {current}!</h2>
+         <p>Please wait for the confirmation screen on the device</p>
+      </div>
+      : ""}
       <div className="flex-container">
         <button className="red-button" onClick={props.onClick}>
           Reset

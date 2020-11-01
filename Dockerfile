@@ -21,13 +21,10 @@ RUN apk update
 # Install dependencies for AP
 RUN apk add bridge hostapd wireless-tools wpa_supplicant dnsmasq iw
 
-# Required for vcgencmd
-# This requires the device to be attached when running
-# docker run --privileged --net host --device /dev/vchiq rohithn/kyle-ap
-RUN apk add raspberrypi
-
 # Copy the wpa_supplicant template
 RUN mkdir -p /etc/wpa_supplicant/
+
+COPY ./server/configs/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf
 
 # Set up the base config files - override this on run if required
 COPY ./server/configs/wpa_supplicant.conf /cfg/wpa_supplicant.conf

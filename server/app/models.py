@@ -1,3 +1,5 @@
+import os
+
 
 class DnsmasqCfg:
     domain: str             # --domain=kyle.rmot.io",
@@ -19,8 +21,8 @@ class HostApdCfg:
     ip: str                 # 192.168.27.1
 
     def __init__(self, json):
-        self.ssid = json['ssid']
-        self.wpa_passphrase = json['wpa_passphrase']
+        self.ssid = os.environ.get("AP_SSID") or json['ssid']
+        self.wpa_passphrase = os.environ.get("AP_PASS") or json['wpa_passphrase']
         self.channel = json['channel']
         self.ip = json['ip']
 

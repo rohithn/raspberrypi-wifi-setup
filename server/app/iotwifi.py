@@ -34,26 +34,24 @@ def run_wifi(config: str):
     commands.configure_ap_interface(cfg.hostapd_cfg.ip)
 
     commands.start_hostapd(cfg.hostapd_cfg.wpa_passphrase,
-                           cfg.hostapd_cfg.channel)
-
-    time.sleep(5)
-
-    log.info("Configuring wpa_supplicant...")
-    commands.reset_wpa_supplicant(cfg.wpa_supplicant_cfg.country)
-    commands.start_wpa_supplicant(cfg.wpa_supplicant_cfg.cfg_file)
-    # wpacfg.start_wpa("wlan0", cfg.wpa_supplicant_cfg.cfg_file)
-
-    time.sleep(5)
-
-    log.info("Running an initial scan...")
-    # scan_networks()
-    logging.info(wpacfg.get_networks("wlan0"))
+                           cfg.hostapd_cfg.channel,
+                           cfg.hostapd_cfg.ssid)
 
     time.sleep(5)
 
     log.info("Starting DNS server...")
     commands.start_dnsmasq(cfg.dnsmasq_cfg.domain, cfg.dnsmasq_cfg.address,
                            cfg.dnsmasq_cfg.dhcp_range, cfg.dnsmasq_cfg.vendor_class)
+
+    time.sleep(5)
+
+    log.info("Configuring wpa_supplicant...")
+    # commands.reset_wpa_supplicant(cfg.wpa_supplicant_cfg.country)
+    commands.start_wpa_supplicant(cfg.wpa_supplicant_cfg.cfg_file)
+
+    log.info("Running an initial scan...")
+    # scan_networks()
+    logging.info(wpacfg.get_networks("wlan0"))
 
     log.info("Completed configuration of services.")
 
@@ -67,7 +65,7 @@ def ap_status():
 
 
 def configured_networks():
-    pass
+    return wpacfg.get_configured_networks("wlan0")
 
 
 def connect_network(ssid, password, net_type):
@@ -76,3 +74,7 @@ def connect_network(ssid, password, net_type):
 
 def wlan_status():
     return wpacfg.is_associated("wlan0")
+
+
+def reset_networks():
+    return wpacfg.reset_networks("wlan0")
